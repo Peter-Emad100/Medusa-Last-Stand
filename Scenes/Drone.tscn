@@ -1,0 +1,204 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Sprites/Aliens/Drone/Walk.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Aliens/Drone/Death.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/EvilEmpire-4BBVK.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Audio/hit-armor-03-266300.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Sprites/Aliens/imageedit_2_2176465539.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Drone.gd" type="Script" id=7]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 288, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 480, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 192, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 288, 0, 96, 96 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Die",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "Run",
+"speed": 15.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=12]
+radius = 11.0031
+height = 226.653
+
+[sub_resource type="CapsuleShape2D" id=13]
+radius = 52.3587
+height = 18.2832
+
+[sub_resource type="CapsuleShape2D" id=14]
+radius = 15.5131
+height = 26.7863
+
+[sub_resource type="DynamicFont" id=15]
+size = 30
+outline_size = 6
+outline_color = Color( 0.0823529, 0.356863, 0.0235294, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=16]
+resource_name = "Die"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CPUParticles2D:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.186275 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "Hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Damage taken:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 52.316, -97.112 ), Vector2( 66, -160 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Damage taken:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Drone" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 3, 3 )
+frames = SubResource( 11 )
+animation = "Run"
+frame = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0.370041, -106.056 )
+rotation = 1.5708
+shape = SubResource( 12 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 1.25989, -42.2074 )
+rotation = 1.5708
+shape = SubResource( 13 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -3.1498, 37.1677 )
+shape = SubResource( 14 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -8.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 1.88988, -41.5774 )
+emitting = false
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource( 5 )
+direction = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 90.0
+initial_velocity_random = 1.0
+scale_amount = 1.5
+color = Color( 1, 1, 1, 0.186275 )
+
+[node name="Damage taken" type="Label" parent="."]
+visible = false
+margin_left = 28.316
+margin_top = -270.112
+margin_right = 68.316
+margin_bottom = -237.112
+custom_fonts/font = SubResource( 15 )
+text = "25"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Die = SubResource( 16 )
+anims/Hit = SubResource( 17 )

@@ -1,0 +1,154 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://Audio/hit-armor-03-266300.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Sprites/Aliens/Robot2/Dead.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Aliens/imageedit_2_2176465539.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Aliens/Robot2/Walk.png" type="Texture" id=4]
+[ext_resource path="res://Fonts/EvilEmpire-4BBVK.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Scripts/AlienRobot2.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/AnimationPlayer.tscn" type="PackedScene" id=7]
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 768, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 768, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 896, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": false,
+"name": "Die",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "Run",
+"speed": 15.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=17]
+radius = 32.4131
+height = 174.623
+
+[sub_resource type="DynamicFont" id=18]
+size = 36
+outline_size = 6
+outline_color = Color( 0.0823529, 0.356863, 0.0235294, 1 )
+font_data = ExtResource( 5 )
+
+[node name="AlienRobot2" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.0451356, -195.193 )
+scale = Vector2( 3, 3 )
+frames = SubResource( 16 )
+animation = "Run"
+flip_h = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -1.79516, -121.527 )
+shape = SubResource( 17 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+volume_db = -8.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( -1.98425, -121.039 )
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource( 3 )
+direction = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 140.0
+initial_velocity_random = 1.0
+
+[node name="Damage taken" type="Label" parent="."]
+visible = false
+margin_left = 15.102
+margin_top = -158.143
+margin_right = 55.102
+margin_bottom = -119.143
+custom_fonts/font = SubResource( 18 )
+text = "20"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" parent="." instance=ExtResource( 7 )]
